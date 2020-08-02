@@ -14,15 +14,13 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static com.lw.event.helper.EventConstant.*;
-import static com.lw.event.helper.EventUtil.getFilterMap;
-import static com.lw.event.helper.EventUtil.getSortList;
+import static com.lw.event.helper.EventUtil.*;
 
 @Slf4j
 @Service
@@ -38,7 +36,7 @@ public class EventService {
         List<EventDTO> eventDTOs = new ArrayList<>();
 
         Map<String, List<String>> filterMap = getFilterMap(querySpec);
-        List<List<String>> sortList = getSortList(querySpec);
+        Map<String, String> sortMap = getSortMap(querySpec);
 
         if (filterMap.get(EVENTLOCATION).size() > 1) {
             throw new MultipleLocationException("Please provide only one location.");
@@ -48,7 +46,7 @@ public class EventService {
         String date = filterMap.containsKey(EVENTDATE) ? filterMap.get(EVENTDATE).get(0) : "Future";
 
         log.info("Getting events for: {}", location);
-        if (filterMap.containsKey(EVENTCATEGORY)) { // one call for each category for classification
+        if (filterMap.containsKey(EVENTCATEGORY)) {
             filterMap.get(EVENTCATEGORY).parallelStream().forEach(category -> {
                 MultiValueMap queryParamMap = new LinkedMultiValueMap();
                 queryParamMap.set("app_key", "SBX2Rc87dLFCLjw4");
@@ -82,7 +80,7 @@ public class EventService {
             });
         }
 
-        // TODO: sort the events
+        sortByCategoryAndByStartTime(eventDTOs, sortMap);
 
         return eventDTOs;
     }

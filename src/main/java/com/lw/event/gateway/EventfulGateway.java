@@ -68,7 +68,9 @@ public class EventfulGateway {
                     .flatMap(map -> {
                         return fetchSearch(map);
                     })
-                    .collectSortedList((s1, s2) -> s2.getPageNumber() - s1.getPageNumber())
+//                    .collectSortedList((s1, s2) -> s2.getPageNumber() - s1.getPageNumber())
+                    .sequential()
+                    .collectList()
                     .block();
             searchList.addAll(secondAsyncSearches);
         }

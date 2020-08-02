@@ -55,12 +55,12 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testImplementation 'junit:junit:4.13'
-	testImplementation 'org.mockito:mockito-junit-jupiter'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
-	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
-	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'org.mockito:mockito-junit-jupiter:3.1.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.5.2"
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.5.2'
+	testImplementation 'org.mockito:mockito-core:3.1.0'
 	jaxb (
 			'com.sun.xml.bind:jaxb-xjc:2.2.7',
 			'com.sun.xml.bind:jaxb-impl:2.2.7'

@@ -1,0 +1,99 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.lw'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	jcenter()
+}
+
+sourceSets.main.java.srcDirs "build/generated-sources/java"
+sourceSets.test.java.srcDirs "src/test/java"
+
+configurations {
+	jaxb
+}
+
+apply plugin: 'io.spring.dependency-management' // TODO: delete redundant
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.boot:spring-boot-dependencies:2.2.2.RELEASE'
+		mavenBom "io.crnk:crnk-bom:3.2.20200419165537"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+	implementation 'ma.glasnost.orika:orika-core:1.5.4'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	implementation 'io.crnk:crnk-setup-spring-boot2'
+	implementation 'io.crnk:crnk-format-plain-json'
+	implementation 'io.crnk:crnk-home'
+	implementation "io.crnk:crnk-client"
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+	testImplementation 'junit:junit:4.13'
+	testImplementation 'org.mockito:mockito-junit-jupiter'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
+	testImplementation 'org.mockito:mockito-core'
+	jaxb (
+			'com.sun.xml.bind:jaxb-xjc:2.2.7',
+			'com.sun.xml.bind:jaxb-impl:2.2.7'
+	)
+}
+
+test {
+	useJUnitPlatform()
+}
+
+task jaxb {
+	System.setProperty('javax.xml.accessExternalSchema', 'all')
+	def jaxbTargetDir = file("build/generated-sources/java")
+	doLast {
+		jaxbTargetDir.mkdirs()
+		ant.taskdef(
+				name: 'xjc',
+				classname: 'com.sun.tools.xjc.XJCTask',
+				classpath: configurations.jaxb.asPath
+		)
+		ant.jaxbTargetDir = jaxbTargetDir
+		ant.xjc(
+				destdir: '${jaxbTargetDir}',
+				package: 'com.lw.event',
+				schema: 'src/main/resources/xsd/search.xsd'
+		)
+	}
+}
+
+compileJava {
+	dependsOn jaxb
+}
+
+test {
+	useJUnitPlatform()
+}

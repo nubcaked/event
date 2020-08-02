@@ -1,0 +1,106 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="search">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:byte" name="total_items"/>
+                <xs:element type="xs:byte" name="page_size"/>
+                <xs:element type="xs:byte" name="page_count"/>
+                <xs:element type="xs:byte" name="page_number"/>
+                <xs:element type="xs:string" name="page_items"/>
+                <xs:element type="xs:string" name="first_item"/>
+                <xs:element type="xs:string" name="last_item"/>
+                <xs:element type="xs:float" name="search_time"/>
+                <xs:element name="events">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="event" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="title"/>
+                                        <xs:element type="xs:anyURI" name="url"/>
+                                        <xs:element type="xs:string" name="description"/>
+                                        <xs:element type="xs:string" name="start_time"/>
+                                        <xs:element type="xs:string" name="stop_time"/>
+                                        <xs:element type="xs:string" name="tz_id"/>
+                                        <xs:element type="xs:string" name="tz_olson_path"/>
+                                        <xs:element type="xs:string" name="tz_country"/>
+                                        <xs:element type="xs:string" name="tz_city"/>
+                                        <xs:element type="xs:string" name="olson_path"/>
+                                        <xs:element type="xs:string" name="venue_id"/>
+                                        <xs:element type="xs:anyURI" name="venue_url"/>
+                                        <xs:element type="xs:string" name="venue_name"/>
+                                        <xs:element type="xs:byte" name="venue_display"/>
+                                        <xs:element type="xs:string" name="venue_address"/>
+                                        <xs:element type="xs:string" name="city_name"/>
+                                        <xs:element type="xs:string" name="region_name"/>
+                                        <xs:element type="xs:string" name="region_abbr"/>
+                                        <xs:element type="xs:string" name="postal_code"/>
+                                        <xs:element type="xs:string" name="country_name"/>
+                                        <xs:element type="xs:string" name="country_abbr2"/>
+                                        <xs:element type="xs:string" name="country_abbr"/>
+                                        <xs:element type="xs:float" name="latitude"/>
+                                        <xs:element type="xs:float" name="longitude"/>
+                                        <xs:element type="xs:string" name="geocode_type"/>
+                                        <xs:element type="xs:byte" name="all_day"/>
+                                        <xs:element type="xs:string" name="recur_string"/>
+                                        <xs:element type="xs:string" name="calendar_count"/>
+                                        <xs:element type="xs:string" name="comment_count"/>
+                                        <xs:element type="xs:string" name="link_count"/>
+                                        <xs:element type="xs:string" name="going_count"/>
+                                        <xs:element type="xs:string" name="watching_count"/>
+                                        <xs:element type="xs:string" name="created"/>
+                                        <xs:element type="xs:string" name="owner"/>
+                                        <xs:element type="xs:string" name="modified"/>
+                                        <xs:element type="xs:string" name="performers"/>
+                                        <xs:element name="image">
+                                            <xs:complexType mixed="true">
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="url" minOccurs="0"/>
+                                                    <xs:element type="xs:byte" name="width" minOccurs="0"/>
+                                                    <xs:element type="xs:byte" name="height" minOccurs="0"/>
+                                                    <xs:element type="xs:string" name="caption" minOccurs="0"/>
+                                                    <xs:element name="thumb" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="url"/>
+                                                                <xs:element type="xs:byte" name="width"/>
+                                                                <xs:element type="xs:byte" name="height"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="small" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="url"/>
+                                                                <xs:element type="xs:byte" name="width"/>
+                                                                <xs:element type="xs:byte" name="height"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="medium" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="url"/>
+                                                                <xs:element type="xs:short" name="width"/>
+                                                                <xs:element type="xs:short" name="height"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:byte" name="privacy"/>
+                                        <xs:element type="xs:string" name="calendars"/>
+                                        <xs:element type="xs:string" name="groups"/>
+                                        <xs:element type="xs:string" name="going"/>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="id" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

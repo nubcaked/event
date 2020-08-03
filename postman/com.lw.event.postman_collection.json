@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "b55e20ca-785b-486e-9a90-638135fb713d",
+		"name": "com.lw.event",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "findAll events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/events?filter[location]=London&filter[category]=animals,art,books,business&filter[date]=2019080100-2020092700&sort=category,-startTime",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "filter[location]",
+							"value": "London"
+						},
+						{
+							"key": "filter[category]",
+							"value": "animals,art,books,business"
+						},
+						{
+							"key": "filter[date]",
+							"value": "2019080100-2020092700"
+						},
+						{
+							"key": "filter[test]",
+							"value": "abc",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "category,-startTime"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

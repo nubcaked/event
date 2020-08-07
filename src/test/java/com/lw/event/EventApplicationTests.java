@@ -29,8 +29,12 @@ class EventApplicationTests {
 	EventUtil eventUtil;
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 	    assertThat(eventRepository).isNotNull();
+		assertThat(eventService).isNotNull();
+		assertThat(eventfulGateway).isNotNull();
+		assertThat(eventMapping).isNotNull();
+		assertThat(eventUtil).isNotNull();
 	}
 
 }

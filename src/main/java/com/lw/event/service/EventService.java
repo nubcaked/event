@@ -5,6 +5,7 @@ import com.lw.event.Search.Events.Event;
 import com.lw.event.dto.EventDTO;
 import com.lw.event.exception.MultipleLocationException;
 import com.lw.event.gateway.EventfulGateway;
+import com.lw.event.helper.EventUtil;
 import io.crnk.core.queryspec.QuerySpec;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -20,7 +21,6 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static com.lw.event.helper.EventConstant.*;
-import static com.lw.event.helper.EventUtil.*;
 
 @Slf4j
 @Service
@@ -28,15 +28,16 @@ public class EventService {
 
     @Autowired
     EventfulGateway eventfulGateway;
-
+    @Autowired
+    EventUtil eventUtil;
     @Autowired
     MapperFacade mapper;
 
     public List<EventDTO> getEvents(QuerySpec querySpec) {
         List<EventDTO> eventDTOs = new ArrayList<>();
 
-        Map<String, List<String>> filterMap = getFilterMap(querySpec);
-        Map<String, String> sortMap = getSortMap(querySpec);
+        Map<String, List<String>> filterMap = eventUtil.getFilterMap(querySpec);
+        Map<String, String> sortMap = eventUtil.getSortMap(querySpec);
 
         if (filterMap.get(EVENTLOCATION).size() > 1) {
             throw new MultipleLocationException("Please provide only one location.");
@@ -80,7 +81,7 @@ public class EventService {
             });
         }
 
-        sortByCategoryAndByStartTime(eventDTOs, sortMap);
+        eventUtil.sortByCategoryAndByStartTime(eventDTOs, sortMap);
 
         return eventDTOs;
     }

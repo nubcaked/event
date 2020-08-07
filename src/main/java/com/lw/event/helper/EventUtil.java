@@ -19,7 +19,7 @@ public class EventUtil {
 
     public static Map<String, List<String>> getFilterMap(QuerySpec querySpec) {
         Map<String, List<String>> filterMap = new HashMap<>();
-        if (querySpec.getFilters().size() > 0) {
+        if (querySpec.getFilters() != null && querySpec.getFilters().size() > 0) {
             for (FilterSpec filterSpec : querySpec.getFilters()) {
                 if (filterSpec.toString().contains(EVENTLOCATION)) {
                     filterMap.put(EVENTLOCATION, Arrays.asList(filterSpec.getValue().toString().replace("[", "").replace("]", "").replace(" ", "").split(",")));
@@ -34,7 +34,7 @@ public class EventUtil {
 
     public static Map<String, String> getSortMap(QuerySpec querySpec) {
         Map<String, String> sortMap = new HashMap<>();
-        if (querySpec.getSort().size() > 0) {
+        if (querySpec.getSort() != null && querySpec.getSort().size() > 0) {
             for (SortSpec sortSpec : querySpec.getSort()) {
                 if (sortSpec.toString().contains(EVENTCATEGORY)) {
                     sortMap.put(EVENTCATEGORY, sortSpec.getDirection().name());
@@ -82,7 +82,7 @@ public class EventUtil {
 
     public static List<List<String>> getSortList(QuerySpec querySpec) {
         List<List<String>> sortList = new ArrayList<>();
-        if (querySpec.getSort().size() > 0) {
+        if (querySpec.getSort() != null && querySpec.getSort().size() > 0) {
             for (SortSpec sortSpec : querySpec.getSort()) {
                 if (sortSpec.toString().contains(EVENTCATEGORY)) {
                     sortList.add(new ArrayList<>(Arrays.asList(EVENTCATEGORY, sortSpec.getDirection().toString())));

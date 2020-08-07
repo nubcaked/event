@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
+//@SpringBootTest
 class EventRepositoryTest {
 
     @InjectMocks
@@ -38,7 +38,7 @@ class EventRepositoryTest {
     void ShouldReturnResourceList_When_MethodFindAllIsCalled() {
         List<EventDTO> eventDTOs = new ArrayList<>();
         when(eventService.getEvents(any(QuerySpec.class))).thenReturn(eventDTOs);
-        assertThat(eventRepository.findAll(new QuerySpec("events"))).isInstanceOfAny(ResourceList.class);
+        assertThat(eventRepository.findAll(new QuerySpec("events"))).isInstanceOf(ResourceList.class);
         verify(eventService, times(1)).getEvents(any(QuerySpec.class));
     }
 }
